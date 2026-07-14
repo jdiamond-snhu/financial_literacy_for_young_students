@@ -166,7 +166,7 @@ with app_center:
             st.subheader("🏡 Your Visual Garden")
             
             if st.session_state.garden_soil == 0:
-                st.error("🟫 Your garden is just bare dirt! No trees are growing.")
+                st.error("🟫 Your garden is just bare dirt! Nothing is growing.")
                 st.write("🟫 🟫 🟫 🟫 🟫")
             elif st.session_state.garden_soil < 6:
                 st.info("🌱 Tiny green sprouts are popping up! Keep watching them.")

@@ -120,13 +120,13 @@ with app_center:
             # Action buttons
             spend_btn, save_btn = st.columns(2)
             with spend_btn:
-                if st.button("🛍️ Spend 1 Coin on a Toy", use_container_width=True, disabled=(st.session_state.pocket_cash < 1)):
+                if st.button("🧸 Spend 1 Coin on a Toy", use_container_width=True, disabled=(st.session_state.pocket_cash < 1)):
                     st.session_state.seeds += 1
                     st.session_state.pocket_cash -= 1
                     st.session_state.history.insert(0, f"Week {st.session_state.week}: Bought 1 temporary toy.")
                     st.rerun()
             with save_btn:
-                if st.button("🪴 Plant 1 Coin in Soil", use_container_width=True, disabled=(st.session_state.pocket_cash < 1)):
+                if st.button("🌱 Plant 1 Coin in Soil", use_container_width=True, disabled=(st.session_state.pocket_cash < 1)):
                     st.session_state.garden_soil += 1
                     st.session_state.pocket_cash -= 1
                     st.session_state.history.insert(0, f"Week {st.session_state.week}: Planted 1 coin to grow.")

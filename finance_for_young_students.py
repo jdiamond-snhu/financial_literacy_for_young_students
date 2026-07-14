@@ -37,14 +37,14 @@ with app_center:
     if st.session_state.game_over:
         # --- GAME OVER SCREEN ---
         st.balloons()
-        st.header("🏁 Month Complete! Let's See Your Final Treasures:")
+        st.header("🏁 Month Complete! Let's Review Your Progress:")
         
         go_col1, go_col2 = st.columns(2)
         with go_col1:
-            st.metric(label="🧸 Total Toys Bought", value=f"{st.session_state.seeds} 🌾")
+            st.metric(label="🧸 Total Toys Bought", value=f"{st.session_state.seeds}")
             st.error("These toys were fun, but they are gone now!")
         with go_col2:
-            st.metric(label="🌳 Giant Trees in Soil", value=f"{st.session_state.garden_soil} 🌳")
+            st.metric(label="🌳 Giant Trees in Soil", value=f"{st.session_state.garden_soil}")
             if st.session_state.garden_soil >= 15:
                 st.success("🏆 **WEALTH MASTER:** Incredible! By adding your allowance to your soil every week, you grew a massive forest!")
             elif st.session_state.garden_soil > 0:
@@ -53,15 +53,29 @@ with app_center:
                 st.warning("⚠️ **EMPTY GARDEN:** You spent all your coins and allowances immediately. Your garden finished as bare dirt.")
                 
         st.markdown("---")
-        st.subheader("🏡 Your Final Garden Ecosystem")
-        if st.session_state.garden_soil == 0:
-            st.write("🟫 🟫 🟫 🟫 🟫 (Empty dirt)")
-        elif st.session_state.garden_soil < 8:
-            st.write("🌱 🌱 🌱 (Baby sprouts)")
-        elif st.session_state.garden_soil < 15:
-            st.write("🌿 🌿 🌿 🌿 🌿 (Medium bushes)")
-        else:
-            st.write("🌳 ✨ 🌳 ✨ 🌳 ✨ 🌳 (A magical, giant forest!)")
+        
+        # --- NEW DYNAMIC EMOJI SCOREBOARD ---
+        st.subheader("🏡 Your Month of Spending and Planting")
+        
+        emoji_left, emoji_right = st.columns(2)
+        
+        with emoji_left:
+            st.markdown("#### 🧸 Toys Collected:")
+            if st.session_state.seeds == 0:
+                st.write("(You didn't buy any toys this month!)")
+            else:
+                # Generate exactly 1 toy emoji per spent seed
+                toy_string = " ".join(["🧸"] * st.session_state.seeds)
+                st.write(toy_string)
+                
+        with emoji_right:
+            st.markdown("#### 🌳 Trees Grown:")
+            if st.session_state.garden_soil == 0:
+                st.write("🟫 (Just empty dirt!)")
+            else:
+                # Generate exactly 1 tree emoji per saved seed + earned dividends
+                tree_string = " ".join(["🌳"] * st.session_state.garden_soil)
+                st.write(tree_string)
             
     else:
         # --- ACTIVE GAMEPLAY SCREEN (WEEKS 1-4) ---

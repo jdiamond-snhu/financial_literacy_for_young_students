@@ -26,7 +26,7 @@ pad_left, app_center, pad_right = st.columns([0.125, 0.75, 0.125])
 with app_center:
 
     # --- TOP BANNER ---
-    st.title("🪙 SeedMoney: The Weekly Allowance Game for Students Age 5-7")
+    st.title("🌱 SeedMoney: The Weekly Allowance Game for Students Age 5-7")
     st.write("Get 5 new coins every week! Will you spend them on temporary toys or plant them to grow magic bonus coins?")
     st.caption("A game of spending and saving by Jeff Diamond-Radecki")
     st.markdown("---")

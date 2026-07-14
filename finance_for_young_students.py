@@ -97,7 +97,7 @@ with app_center:
         # LEFT SIDE: WORK AREA & METRICS
         # ==========================================
         with main_left:
-            st.subheader("📊 Your Money Box")
+            st.subheader("📊 Your Weekly Spending")
             
             m_col1, m_col2, m_col3 = st.columns(3)
             with m_col1:

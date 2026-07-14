@@ -97,7 +97,7 @@ with app_center:
         # LEFT SIDE: WORK AREA & METRICS
         # ==========================================
         with main_left:
-            st.subheader("📊 Your Weekly Spending")
+            st.subheader("💰 Your Weekly Spending")
             
             m_col1, m_col2, m_col3 = st.columns(3)
             with m_col1:
@@ -113,7 +113,7 @@ with app_center:
             
             # Show how many coins are left in the child's hand to use right now
             if st.session_state.pocket_cash > 0:
-                st.info(f"🪙 💰 You have **{st.session_state.pocket_cash} coin(s)** left in your hand to use.")
+                st.info(f"💰 You have **{st.session_state.pocket_cash} coin(s)** left in your hand to use.")
             else:
                 st.success(f"🎉 All coins for Week {st.session_state.week} have been used!")
 

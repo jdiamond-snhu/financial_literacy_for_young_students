@@ -155,7 +155,7 @@ with app_center:
             # WEEKS 2, 3, 4: Holding Phase (Relying Purely on Compound Yields)
             else:
                 st.subheader("⏳ The Holding and Compounding Phase")
-                st.write(f"You have no new capital injections. Your financial future depends entirely on your running assets compounding.")
+                st.write("You have no new capital injections. Your financial future depends entirely on your running assets compounding.")
                 
                 # Show potential dividend before they click the button
                 expected_dividend = round(st.session_state.garden_soil * 0.20)

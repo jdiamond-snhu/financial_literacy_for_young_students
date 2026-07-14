@@ -1,34 +1,33 @@
 import streamlit as st
 
 # Keep layout as wide to utilize the custom percentage column math
-st.set_page_config(page_title="SeedMoney: The $1 Capital Challenge", layout="wide")
+st.set_page_config(page_title="SeedMoney: 5 Shiny Nickels", layout="wide")
 
 # Initialize game state variables so they persist across clicks
 if "seeds" not in st.session_state:
-    st.session_state.seeds = 0  # Total spent/accumulated pocket items (temporary spend)
+    st.session_state.seeds = 0  # Total spent items (toys bought)
 if "garden_soil" not in st.session_state:
-    st.session_state.garden_soil = 0  # Saved compounding capital
+    st.session_state.garden_soil = 0  # Saved seeds compounding
 if "history" not in st.session_state:
     st.session_state.history = []  # Log of actions
 if "week" not in st.session_state:
     st.session_state.week = 1  # Track weekly turns (4-week game)
 if "week_1_allocated" not in st.session_state:
-    st.session_state.week_1_allocated = 0  # Tracks how many of the initial 100 seeds have been used
+    st.session_state.week_1_allocated = 0  # Tracks how many of the initial 5 seeds have been used
 if "game_over" not in st.session_state:
     st.session_state.game_over = False
 
-# Constants
-STARTING_CAPITAL = 100
+# Constants for Early Childhood
+STARTING_CAPITAL = 5
 
 # --- OUTER LAYOUT: CONSTRICTOR TO 75% WIDTH ---
 pad_left, app_center, pad_right = st.columns([0.125, 0.75, 0.125])
 
-# All code is now nested inside the 'app_center' block to lock the width
 with app_center:
 
     # --- TOP BANNER ---
-    st.title("🌱 SeedMoney: The $1.00 Capital Challenge")
-    st.caption("One Dollar (100 Seeds) to start your month. Will you consume your principal or grow it?")
+    st.title("🪙 SeedMoney: The 5 Nickels Challenge")
+    st.caption("You have 5 shiny coins to start the month. Will you spend them or plant them?")
     st.markdown("---")
 
     # Check if the 4-week month is complete
@@ -38,37 +37,36 @@ with app_center:
     if st.session_state.game_over:
         # --- GAME OVER SCREEN ---
         st.balloons()
-        st.header("🏁 Month Complete! Let's Review Your Financial Status:")
+        st.header("🏁 Month Complete! Let's See Your Treasures:")
         
         go_col1, go_col2 = st.columns(2)
         with go_col1:
-            st.metric(label="🪙 Total Pocket Cash (Spent Items)", value=f"{st.session_state.seeds} 🌾")
-            st.error("You purchased temporary items, but this wealth is now gone.")
+            st.metric(label="🧸 Toys Bought (Spent Items)", value=f"{st.session_state.seeds} 🌾")
+            st.error("These toys were fun, but they are gone now!")
         with go_col2:
-            st.metric(label="🪵 Final Asset Wealth (Garden Soil)", value=f"{st.session_state.garden_soil} 🌳")
-            if st.session_state.garden_soil >= 200:
-                st.success("🏆 **WEALTH MASTER SUCCESS:** Sensational! By protecting your $1.00 principal in Week 1, your running dividends created massive free growth!")
+            st.metric(label="🌳 Giant Trees Grown (Saved Assets)", value=f"{st.session_state.garden_soil} 🌳")
+            if st.session_state.garden_soil >= 10:
+                st.success("🏆 **WEALTH MASTER:** Incredible! Your 5 coins grew into a massive forest of 10+ trees because you were patient!")
             elif st.session_state.garden_soil > 0:
-                st.info("👍 **MID-TIER ACCOMPLISHMENT:** You saved some assets, but look how much compounding power you lost by spending your capital early.")
+                st.info("👍 **GOOD JOB:** You saved a few coins and grew a nice little garden!")
             else:
-                st.warning("⚠️ **ZERO CAPITAL RESIDUAL:** You spent your entire dollar on Week 1. Your asset base remained at zero all month, earning zero dividends.")
+                st.warning("⚠️ **EMPTY GARDEN:** You spent all 5 coins right away. Your garden is bare dirt.")
                 
         st.markdown("---")
-        st.subheader("🏡 Your Final Garden Ecosystem")
+        st.subheader("🏡 Your Final Garden")
         if st.session_state.garden_soil == 0:
-            st.write("🟫 🟫 🟫 🟫 🟫 (Just bare dirt)")
-        elif st.session_state.garden_soil < 100:
-            st.write("🌱 🌱 🌱 (Small sprouts)")
-        elif st.session_state.garden_soil < 200:
-            st.write("🌿 🌿 🌿 🌿 🌿 (Developed bushes)")
+            st.write("🟫 🟫 🟫 🟫 🟫 (Empty dirt)")
+        elif st.session_state.garden_soil < 5:
+            st.write("🌱 🌱 🌱 (Baby sprouts)")
+        elif st.session_state.garden_soil < 10:
+            st.write("🌿 🌿 🌿 🌿 🌿 (Medium bushes)")
         else:
-            st.write("🌳 ✨ 🌳 ✨ 🌳 ✨ 🌳 (A towering forest of independent assets!)")
+            st.write("🌳 ✨ 🌳 ✨ 🌳 ✨ 🌳 (A magical, giant forest!)")
             
     else:
         # --- ACTIVE GAMEPLAY SCREEN (WEEKS 1-4) ---
         main_left, main_right = st.columns(2, gap="large")
 
-        # Dynamic logic based on whether it is Week 1 or subsequent weeks
         if st.session_state.week == 1:
             seeds_left_to_allocate = STARTING_CAPITAL - st.session_state.week_1_allocated
         else:
@@ -78,144 +76,97 @@ with app_center:
         # LEFT SIDE: WORK AREA & METRICS
         # ==========================================
         with main_left:
-            st.subheader("📊 Your Active Balance Sheet")
+            st.subheader("📊 Your Money Box")
             
-            # Nested metrics for the work area
             m_col1, m_col2, m_col3 = st.columns(3)
             with m_col1:
-                st.metric(label="📆 Game Timeline", value=f"Week {st.session_state.week} / 4")
+                st.metric(label="📆 Week", value=f"{st.session_state.week} / 4")
             with m_col2:
-                st.metric(label="🪙 Total Spent Items", value=f"{st.session_state.seeds} 🌾")
+                st.metric(label="🧸 Toys Bought", value=f"{st.session_state.seeds}")
             with m_col3:
-                st.metric(label="🪵 Running Soil Asset Base", value=f"{st.session_state.garden_soil} 🌳")
+                st.metric(label="🌱 Seeds Planted", value=f"{st.session_state.garden_soil}")
                 
             st.markdown("---")
             
-                       # WEEK 1 ONLY: Capital Allocation Choices
+            # WEEK 1 ONLY: Simple 1-by-1 choices
             if st.session_state.week == 1:
-                st.subheader("👇 Allocate Your Starting $1.00 Principal")
-                st.info(f"💡 You have **{seeds_left_to_allocate} out of 100 seeds (pennies)** left to distribute for Week 1.")
+                st.subheader("👇 Use Your 5 Starting Coins")
+                st.info(f"🪙 You have **{seeds_left_to_allocate} coins** left in your hand.")
 
-                # --- OPTION A: SPEND DENOMINATIONS ---
-                st.markdown("### 🛍️ Option A: Immediate Consumption")
-                st.caption("Spend capital right away on temporary, flashy items!")
-                
-                spend_btn_col1, spend_btn_col2 = st.columns(2)
-                with spend_btn_col1:
-                    spend_10 = st.button("🛍️ Spend 10 Seeds", use_container_width=True, disabled=(seeds_left_to_allocate < 10))
-                with spend_btn_col2:
-                    spend_20 = st.button("🛍️ Spend 20 Seeds", use_container_width=True, disabled=(seeds_left_to_allocate < 20))
-                    
-                if spend_10:
-                    st.session_state.seeds += 10
-                    st.session_state.week_1_allocated += 10
-                    st.session_state.history.insert(0, "Week 1: Spent 10 seeds on short-term consumption.")
-                    st.rerun()
-                if spend_20:
-                    st.session_state.seeds += 20
-                    st.session_state.week_1_allocated += 20
-                    st.session_state.history.insert(0, "Week 1: Spent 20 seeds on short-term consumption.")
-                    st.rerun()
-
-                # --- OPTION B: SAVE DENOMINATIONS ---
-                st.markdown("### 🪴 Option B: The Compounding Asset Base")
-                st.caption("Plant seeds in the soil. Your total baseline yields an added **20% dividend** by Sunday night!")
-                
-                save_btn_col1, save_btn_col2 = st.columns(2)
-                with save_btn_col1:
-                    save_10 = st.button("🪴 Plant 10 Seeds", use_container_width=True, disabled=(seeds_left_to_allocate < 10))
-                with save_btn_col2:
-                    save_20 = st.button("🪴 Plant 20 Seeds", use_container_width=True, disabled=(seeds_left_to_allocate < 20))
-                    
-                if save_10:
-                    st.session_state.garden_soil += 10
-                    st.session_state.week_1_allocated += 10
-                    st.session_state.history.insert(0, "Week 1: Contributed 10 seeds to running asset base.")
-                    st.rerun()
-                if save_20:
-                    st.session_state.garden_soil += 20
-                    st.session_state.week_1_allocated += 20
-                    st.session_state.history.insert(0, "Week 1: Contributed 20 seeds to running asset base.")
-                    st.rerun()
+                spend_btn, save_btn = st.columns(2)
+                with spend_btn:
+                    if st.button("🛍️ Spend 1 Coin on a Toy", use_container_width=True, disabled=(seeds_left_to_allocate < 1)):
+                        st.session_state.seeds += 1
+                        st.session_state.week_1_allocated += 1
+                        st.session_state.history.insert(0, "Bought 1 temporary toy.")
+                        st.rerun()
+                with save_btn:
+                    if st.button("🪴 Plant 1 Coin in Soil", use_container_width=True, disabled=(seeds_left_to_allocate < 1)):
+                        st.session_state.garden_soil += 1
+                        st.session_state.week_1_allocated += 1
+                        st.session_state.history.insert(0, "Planted 1 coin to grow.")
+                        st.rerun()
 
                 st.markdown("---")
                 
-                # --- WEEK 1 END BUTTON ---
                 if seeds_left_to_allocate == 0:
-                    st.success("🎉 Initial capital allocation complete!")
-                    if st.button("➡️ Close Week 1 & Collect 20% Dividend", use_container_width=True, type="primary"):
+                    st.success("🎉 All 5 coins are used!")
+                    if st.button("➡️ End Week 1 & Watch it Grow!", use_container_width=True, type="primary"):
+                        # For small numbers, 5 seeds planted gives exactly 1 bonus seed (20% interest)
                         dividend = round(st.session_state.garden_soil * 0.20)
+                        if dividend == 0 and st.session_state.garden_soil >= 3:
+                            dividend = 1  # Ensure kids get a reward if they save the majority
                         st.session_state.garden_soil += dividend
-                        st.session_state.history.insert(0, f"📈 End of Week 1: Asset base compounded by 20%! Yielded +{dividend} dividend seeds.")
+                        st.session_state.history.insert(0, f"📈 Week 1 Ended: Your garden grew by {dividend} magic bonus seeds!")
                         st.session_state.week += 1
                         st.rerun()
-                else:
-                    st.warning(f"⚠️ Allocate the remaining {seeds_left_to_allocate} startup seeds before processing the weekly dividend.")
             
-            # WEEKS 2, 3, 4: Holding Phase (Relying Purely on Compound Yields)
+            # WEEKS 2, 3, 4: Simple Holding Phase
             else:
-                st.subheader("⏳ The Holding and Compounding Phase")
-                st.write("You have no new capital injections. Your financial future depends entirely on your running assets compounding.")
+                st.subheader("⏳ The Magic Growth Phase")
+                st.write("No more coins left to spend! Let's watch your planted coins multiply.")
                 
-                # Show potential dividend before they click the button
                 expected_dividend = round(st.session_state.garden_soil * 0.20)
-                st.info(f"🪙 Current Asset Base: **{st.session_state.garden_soil} Seeds**\n\n📈 Expected Sunday Dividend: **+{expected_dividend} Seeds**")
+                if expected_dividend == 0 and st.session_state.garden_soil >= 3:
+                    expected_dividend = 1
+                    
+                st.info(f"🌳 Planted Seeds: **{st.session_state.garden_soil}**\n\n✨ Magic Weekly Bonus coming: **+{expected_dividend} Free Seeds**")
                 
-                if st.button(f"➡️ Process Week {st.session_state.week} & Compound Assets", use_container_width=True, type="primary"):
+                if st.button(f"➡️ Go to Week {st.session_state.week + 1 if st.session_state.week < 4 else 'Results'}", use_container_width=True, type="primary"):
                     st.session_state.garden_soil += expected_dividend
-                    st.session_state.history.insert(0, f"📈 End of Week {st.session_state.week}: Asset base compounded by 20%! Yielded +{expected_dividend} dividend seeds.")
+                    st.session_state.history.insert(0, f"📈 Week {st.session_state.week} Ended: Your garden grew by {expected_dividend} magic bonus seeds!")
                     st.session_state.week += 1
                     st.rerun()
 
         # ==========================================
-        # RIGHT SIDE: VISUAL PLOT & MONTHLY FORECAST
+        # RIGHT SIDE: VISUAL PLOT
         # ==========================================
         with main_right:
-            # 1. Visual Garden Plot
-            st.subheader("🏡 Your Visual Asset Garden")
+            st.subheader("🏡 Your Visual Garden")
             
             if st.session_state.garden_soil == 0:
-                st.error("🟫 Your garden is completely bare dirt! You have zero yield assets.")
+                st.error("🟫 Your garden is just bare dirt! No magic trees are growing.")
                 st.write("🟫 🟫 🟫 🟫 🟫")
-            elif st.session_state.garden_soil < 100:
-                st.info("🌱 Minor sprouts are building in your layout. Keep saving capital!")
+            elif st.session_state.garden_soil < 5:
+                st.info("🌱 Tiny green sprouts are popping up! Keep watching them.")
                 st.write("🌱 🌱 🌱")
-            elif st.session_state.garden_soil < 200:
-                st.success("🌿 Robust bushes are established. Dividends are gaining momentum!")
+            elif st.session_state.garden_soil < 10:
+                st.success("🌿 Your sprouts are turning into big, healthy bushes!")
                 st.write("🌿 🌿 🌿 🌿 🌿")
             else:
-                st.success("👑 FINANCIAL INDEPENDENCE: A dense, self-sustaining forest is yielding massive returns!")
+                st.success("👑 MAGNIFICENT! You grew a giant, magical forest!")
                 st.write("🌳 ✨ 🌳 ✨ 🌳 ✨ 🌳")
                 
             st.markdown("---")
-            
-            # 2. Savings Info Block (The 4-Week Month Projections)
-            st.subheader("⏳ The Monthly Forecasting Machine")
-            st.write("See how the two extreme paths play out by Week 4:")
-            
-            calc_col1, calc_col2 = st.columns(2)
-            with calc_col1:
-                st.markdown("**🚨 100% Spender Path**")
-                st.caption("Spend all 100 seeds immediately:")
-                st.error("• Total Assets by Week 4: **0 Seeds**\n• Accumulated Dividends: **0 Seeds**")
-                
-            with calc_col2:
-                st.markdown("**💎 100% Investor Path**")
-                st.caption("Plant all 100 seeds immediately to let them compound:")
-                
-                # Mathematical projection of compounding a flat 100 seeds over 4 weeks
-                projected_soil = 100
-                for w in range(1, 5):
-                    projected_soil += round(projected_soil * 0.20)
-                    
-                st.success(f"• Total Assets by Week 4: **{projected_soil} Seeds**\n• Status: **Wealth Master**")
+            st.subheader("🔮 The Secret Predictor")
+            st.write("What happens if you save all 5 coins on Week 1?")
+            st.success("• By Week 4, your 5 coins will double into **10 magic seeds**! All on their own!")
 
-    # --- LOWER FULL WIDTH FOOTER ---
     st.markdown("---")
 
-# --- SIDEBAR (Controls & Logs) ---
+# --- SIDEBAR ---
 st.sidebar.subheader("Controls")
-if st.sidebar.button("Reset Month", use_container_width=True):
+if st.sidebar.button("Reset Game", use_container_width=True):
     st.session_state.seeds = 0
     st.session_state.garden_soil = 0
     st.session_state.week = 1
@@ -225,6 +176,6 @@ if st.sidebar.button("Reset Month", use_container_width=True):
     st.rerun()
 
 if st.session_state.history:
-    st.sidebar.subheader("📜 Structural Ledger")
-    for log in st.session_state.history[:5]:  # Show last 5 actions
+    st.sidebar.subheader("📜 What Happened:")
+    for log in st.session_state.history[:5]:
         st.sidebar.write(log)

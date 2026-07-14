@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Keep layout as wide to utilize the custom percentage column math
-st.set_page_config(page_title="SeedMoney: The Weekly Allowance Challenge", layout="wide")
+st.set_page_config(page_title="SeedMoney: The Weekly Allowance Game for Ages 5-8", layout="wide")
 
 # Initialize game state variables so they persist across clicks
 if "seeds" not in st.session_state:
@@ -27,7 +27,8 @@ with app_center:
 
     # --- TOP BANNER ---
     st.title("🪙 SeedMoney: The Weekly Allowance Challenge")
-    st.caption("Get 5 new coins every week! Will you spend them on temporary toys or plant them to grow magic bonus coins?")
+    st.write("Get 5 new coins every week! Will you spend them on temporary toys or plant them to grow magic bonus coins?")
+    st.caption("A game of money and saving by Jeff Diamond-Radecki")
     st.markdown("---")
 
     # Check if the 4-week month is complete

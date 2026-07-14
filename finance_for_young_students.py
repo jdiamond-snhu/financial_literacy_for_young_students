@@ -53,9 +53,9 @@ with app_center:
             elif st.session_state.garden_soil >= 6:
                 st.info("🌟 **GREAT JOB:** Look at that big, beautiful garden! You balanced spending and saving beautifully!")
             elif st.session_state.garden_soil > 0:
-                st.info("🌱 **YOU DID OKAY:** Good effort! You saved a few coins and started growing a nice little plot.")
+                st.info("🌱 **YOU DID OKAY:** You spent a few coins on seeds and started growing a nice little garden.")
             else:
-                st.warning("⚠️ **EMPTY GARDEN:** You spent all your coins and allowances immediately. Your garden finished as bare dirt.")
+                st.warning("⚠️ **EMPTY GARDEN:** You didn't plant any seeds and your garden finished as bare dirt!")
                 
         st.markdown("---")
         

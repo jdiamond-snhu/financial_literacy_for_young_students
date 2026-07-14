@@ -91,8 +91,8 @@ with app_center:
                 
             st.markdown("---")
             
-            # WEEK 1 ONLY: Capital Allocation Choices
-           if st.session_state.week == 1:
+                       # WEEK 1 ONLY: Capital Allocation Choices
+            if st.session_state.week == 1:
                 st.subheader("👇 Allocate Your Starting $1.00 Principal")
                 st.info(f"💡 You have **{seeds_left_to_allocate} out of 100 seeds (pennies)** left to distribute for Week 1.")
 

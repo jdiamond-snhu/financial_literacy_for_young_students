@@ -184,3 +184,5 @@ with app_center:
                 st.success("🌿 Robust bushes are established. Dividends are gaining momentum!")
                 st.write("🌿 🌿 🌿 🌿 🌿")
             else:
+
+                

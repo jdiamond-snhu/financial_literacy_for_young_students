@@ -65,7 +65,7 @@ with app_center:
         emoji_left, emoji_right = st.columns(2)
         
         with emoji_left:
-            st.markdown("#### 🧸 Toys Collected:")
+            st.markdown("#### 🧸 Number of Toys bought:")
             if st.session_state.seeds == 0:
                 st.write("(You didn't buy any toys this month!)")
             else:
@@ -85,7 +85,7 @@ with app_center:
                 tree_string = " ".join(["🌿"] * st.session_state.garden_soil)
                 st.write(tree_string)
             else:
-                st.markdown("#### 🌳 Full Tree Forest Layout:")
+                st.markdown("#### 🌳 Number of Seeds you planted:")
                 tree_string = " ".join(["🌳"] * st.session_state.garden_soil)
                 st.write(tree_string)
             

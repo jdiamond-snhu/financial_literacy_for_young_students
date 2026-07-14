@@ -92,7 +92,7 @@ with app_center:
             st.markdown("---")
             
             # WEEK 1 ONLY: Capital Allocation Choices
-            if st.session_state.week == 1:
+           if st.session_state.week == 1:
                 st.subheader("👇 Allocate Your Starting $1.00 Principal")
                 st.info(f"💡 You have **{seeds_left_to_allocate} out of 100 seeds (pennies)** left to distribute for Week 1.")
 
@@ -184,3 +184,47 @@ with app_center:
                 st.success("🌿 Robust bushes are established. Dividends are gaining momentum!")
                 st.write("🌿 🌿 🌿 🌿 🌿")
             else:
+                st.success("👑 FINANCIAL INDEPENDENCE: A dense, self-sustaining forest is yielding massive returns!")
+                st.write("🌳 ✨ 🌳 ✨ 🌳 ✨ 🌳")
+                
+            st.markdown("---")
+            
+            # 2. Savings Info Block (The 4-Week Month Projections)
+            st.subheader("⏳ The Monthly Forecasting Machine")
+            st.write("See how the two extreme paths play out by Week 4:")
+            
+            calc_col1, calc_col2 = st.columns(2)
+            with calc_col1:
+                st.markdown("**🚨 100% Spender Path**")
+                st.caption("Spend all 100 seeds immediately:")
+                st.error("• Total Assets by Week 4: **0 Seeds**\n• Accumulated Dividends: **0 Seeds**")
+                
+            with calc_col2:
+                st.markdown("**💎 100% Investor Path**")
+                st.caption("Plant all 100 seeds immediately to let them compound:")
+                
+                # Mathematical projection of compounding a flat 100 seeds over 4 weeks
+                projected_soil = 100
+                for w in range(1, 5):
+                    projected_soil += round(projected_soil * 0.20)
+                    
+                st.success(f"• Total Assets by Week 4: **{projected_soil} Seeds**\n• Status: **Wealth Master**")
+
+    # --- LOWER FULL WIDTH FOOTER ---
+    st.markdown("---")
+
+# --- SIDEBAR (Controls & Logs) ---
+st.sidebar.subheader("Controls")
+if st.sidebar.button("Reset Month", use_container_width=True):
+    st.session_state.seeds = 0
+    st.session_state.garden_soil = 0
+    st.session_state.week = 1
+    st.session_state.week_1_allocated = 0
+    st.session_state.game_over = False
+    st.session_state.history = []
+    st.rerun()
+
+if st.session_state.history:
+    st.sidebar.subheader("📜 Structural Ledger")
+    for log in st.session_state.history[:5]:  # Show last 5 actions
+        st.sidebar.write(log)

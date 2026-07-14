@@ -45,16 +45,20 @@ with app_center:
             st.error("These toys were fun, but they are gone now!")
         with go_col2:
             st.metric(label="🌳 Giant Trees in Soil", value=f"{st.session_state.garden_soil}")
+            
+            # --- RECALIBRATED PERFECT 4-WEEK TIER MESSAGES ---
             if st.session_state.garden_soil >= 15:
                 st.success("🏆 **WEALTH MASTER:** Incredible! By adding your allowance to your soil every week, you grew a massive forest!")
+            elif st.session_state.garden_soil >= 6:
+                st.info("🌟 **GREAT JOB:** Look at that big, beautiful garden! You balanced spending and saving beautifully!")
             elif st.session_state.garden_soil > 0:
-                st.info("👍 **GOOD JOB:** You balanced buying toys with growing a nice little garden!")
+                st.info("🌱 **YOU DID OKAY:** Good effort! You saved a few coins and started growing a nice little plot.")
             else:
                 st.warning("⚠️ **EMPTY GARDEN:** You spent all your coins and allowances immediately. Your garden finished as bare dirt.")
                 
         st.markdown("---")
         
-        # --- NEW DYNAMIC EMOJI SCOREBOARD ---
+        # --- DYNAMIC EMOJI SCOREBOARD ---
         st.subheader("🏡 Your Month of Spending and Planting")
         
         emoji_left, emoji_right = st.columns(2)
@@ -64,16 +68,23 @@ with app_center:
             if st.session_state.seeds == 0:
                 st.write("(You didn't buy any toys this month!)")
             else:
-                # Generate exactly 1 toy emoji per spent seed
                 toy_string = " ".join(["🧸"] * st.session_state.seeds)
                 st.write(toy_string)
                 
         with emoji_right:
-            st.markdown("#### 🌳 Trees Grown:")
             if st.session_state.garden_soil == 0:
+                st.markdown("#### 🟫 Bare Dirt:")
                 st.write("🟫 (Just empty dirt!)")
+            elif st.session_state.garden_soil < 6:
+                st.markdown("#### 🌱 Tiny Sprouts Layout:")
+                tree_string = " ".join(["🌱"] * st.session_state.garden_soil)
+                st.write(tree_string)
+            elif st.session_state.garden_soil < 15:
+                st.markdown("#### 🌿 Bush Layout:")
+                tree_string = " ".join(["🌿"] * st.session_state.garden_soil)
+                st.write(tree_string)
             else:
-                # Generate exactly 1 tree emoji per saved seed + earned dividends
+                st.markdown("#### 🌳 Full Tree Forest Layout:")
                 tree_string = " ".join(["🌳"] * st.session_state.garden_soil)
                 st.write(tree_string)
             
@@ -124,24 +135,26 @@ with app_center:
             
             # End of Week Transition Trigger
             if st.session_state.pocket_cash == 0:
-                # Calculate the 20% dividend based on whatever is sitting in the soil
-                dividend = round(st.session_state.garden_soil * 0.20)
                 
-                # Early Childhood Safety Rail math
-                if dividend == 0 and st.session_state.garden_soil >= 3:
-                    dividend = 1
-                
-                st.write(f"Your planted soil will generate **+{dividend} magic bonus coin(s)** this weekend.")
-                
-                if st.button(f"➡️ Close Week {st.session_state.week} & Collect Next Week's Coins", use_container_width=True, type="primary"):
-                    st.session_state.history.insert(0, f"📈 End of Week {st.session_state.week}: Earned +{dividend} bonus coin(s) from your garden!")
+                # IF WEEK 4 IS DONE: Trigger instant game over without another compounding round
+                if st.session_state.week == 4:
+                    if st.button("🏁 Finish Month & See Final Score", use_container_width=True, type="primary"):
+                        st.session_state.week = 5  # This triggers the game_over evaluation immediately
+                        st.rerun()
+                        
+                # IF WEEKS 1, 2, or 3 ARE DONE: Run standard weekend dividend compounding
+                else:
+                    dividend = round(st.session_state.garden_soil * 0.20)
+                    if dividend == 0 and st.session_state.garden_soil >= 3:
+                        dividend = 1
                     
-                    # Next week's starting hand = Guaranteed 5 allowance coins + any earned dividends
-                    st.session_state.pocket_cash = WEEKLY_ALLOWANCE + dividend
+                    st.write(f"Your planted soil will generate **+{dividend} magic bonus coin(s)** this weekend.")
                     
-                    # Advance week counter
-                    st.session_state.week += 1
-                    st.rerun()
+                    if st.button(f"➡️ Close Week {st.session_state.week} & Collect Next Week's Coins", use_container_width=True, type="primary"):
+                        st.session_state.history.insert(0, f"📈 End of Week {st.session_state.week}: Earned +{dividend} bonus coin(s) from your garden!")
+                        st.session_state.pocket_cash = WEEKLY_ALLOWANCE + dividend
+                        st.session_state.week += 1
+                        st.rerun()
             else:
                 st.warning(f"⚠️ Decide what to do with your remaining {st.session_state.pocket_cash} coin(s) before ending the week.")
 
@@ -154,7 +167,7 @@ with app_center:
             if st.session_state.garden_soil == 0:
                 st.error("🟫 Your garden is just bare dirt! No magic trees are growing.")
                 st.write("🟫 🟫 🟫 🟫 🟫")
-            elif st.session_state.garden_soil < 8:
+            elif st.session_state.garden_soil < 6:
                 st.info("🌱 Tiny green sprouts are popping up! Keep watching them.")
                 st.write("🌱 🌱 🌱")
             elif st.session_state.garden_soil < 15:

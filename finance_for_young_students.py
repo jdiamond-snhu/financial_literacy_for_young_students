@@ -27,7 +27,7 @@ with app_center:
 
     # --- TOP BANNER ---
     st.title("🌱 SeedMoney: The Weekly Investment Game for Students Age 5-7")
-    st.write("Get 5 new coins every week! Will you spend them on temporary toys or plant them to grow trees that give you bonus coins?")
+    st.write("Get 5 new coins every week! Will you spend them on temporary toys, or buy seeds to plant to grow trees that give you bonus coins?")
     st.caption("A game of spending and saving by Jeff Diamond-Radecki")
     st.markdown("---")
 

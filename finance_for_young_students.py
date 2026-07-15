@@ -45,7 +45,7 @@ with app_center:
             st.metric(label="🧸 Total Toys Bought", value=f"{st.session_state.seeds}")
             st.error("These toys were fun, but they are gone now!")
         with go_col2:
-            st.metric(label="🌳 Giant Trees in Soil", value=f"{st.session_state.garden_soil}")
+            st.metric(label="🌳 Seeds that grew to become Trees", value=f"{st.session_state.garden_soil}")
             
             # --- RECALIBRATED PERFECT 4-WEEK TIER MESSAGES ---
             if st.session_state.garden_soil >= 15:
@@ -85,7 +85,7 @@ with app_center:
                 tree_string = " ".join(["🌿"] * st.session_state.garden_soil)
                 st.write(tree_string)
             else:
-                st.markdown("#### 🌳 Number of Seeds you planted that grew to become Trees!:")
+                st.markdown("#### 🌳 Number of Seeds you planted that became Trees!:")
                 tree_string = " ".join(["🌳"] * st.session_state.garden_soil)
                 st.write(tree_string)
             
@@ -129,7 +129,7 @@ with app_center:
                 if st.button("🌱 Spend 1 Coin on a Seed to plant in your garden", use_container_width=True, disabled=(st.session_state.pocket_cash < 1)):
                     st.session_state.garden_soil += 1
                     st.session_state.pocket_cash -= 1
-                    st.session_state.history.insert(0, f"Week {st.session_state.week}: Planted 1 coin to grow.")
+                    st.session_state.history.insert(0, f"Week {st.session_state.week}: Planted 1 seed to grow.")
                     st.rerun()
 
             st.markdown("---")
@@ -149,7 +149,7 @@ with app_center:
                     if dividend == 0 and st.session_state.garden_soil >= 3:
                         dividend = 1
                     
-                    st.write(f"Your planted soil will generate **+{dividend} magic bonus coin(s)** this weekend.")
+                    st.write(f"Your planted soil will generate **+{dividend} bonus coin(s)** this weekend.")
                     
                     if st.button(f"➡️ Close Week {st.session_state.week} & Collect Next Week's Coins", use_container_width=True, type="primary"):
                         st.session_state.history.insert(0, f"📈 End of Week {st.session_state.week}: Earned +{dividend} bonus coin(s) from your garden!")
@@ -175,13 +175,13 @@ with app_center:
                 st.success("🌿 Your sprouts are turning into big, healthy bushes!")
                 st.write("🌿 🌿 🌿 🌿 🌿")
             else:
-                st.success("👑 MAGNIFICENT! You grew a giant, magical forest!")
+                st.success("👑 MAGNIFICENT! Your sprouts grew into bushes, and then into a huge forest of trees!")
                 st.write("🌳 ✨ 🌳 ✨ 🌳 ✨ 🌳")
                 
             st.markdown("---")
             st.subheader("🔮 The Allowance Rule")
             st.write("Each Monday morning, you get **5 new coins** guaranteed.")
-            st.write("If you plant all 5 coins in a week, you will get your 5 allowance coins PLUS 1 bonus dividend coin at the start of the following week for 6 coins total!")
+            st.write("Planting seeds earns additional coins. Plant 4 or more seeds in a week and you start the following week with 5 coins + 1 extra coin!")
 
     st.markdown("---")
 

@@ -45,7 +45,7 @@ with app_center:
             st.metric(label="🧸 Total Toys Bought", value=f"{st.session_state.seeds}")
             st.error("These toys were fun, but they are gone now!")
         with go_col2:
-            st.metric(label="🌳 Seeds that grew to become Trees", value=f"{st.session_state.garden_soil}")
+            st.metric(label="🌳 Total Trees in your forest", value=f"{st.session_state.garden_soil}")
             
             # --- RECALIBRATED PERFECT 4-WEEK TIER MESSAGES ---
             if st.session_state.garden_soil >= 15:

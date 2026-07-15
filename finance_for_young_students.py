@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Keep layout as wide to utilize the custom percentage column math
-st.set_page_config(page_title="SeedMoney: The Weekly Investment Game for Students Ages 5-7", layout="wide")
+st.set_page_config(page_title="SeedMoney: The Weekly Investment Game for Students Ages 5 and up", layout="wide")
 
 # Initialize game state variables so they persist across clicks
 if "seeds" not in st.session_state:

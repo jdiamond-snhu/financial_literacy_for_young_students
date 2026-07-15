@@ -181,7 +181,7 @@ with app_center:
             st.markdown("---")
             st.subheader("🔮 The Allowance Rule")
             st.write("Each Monday morning, you get **5 new coins** guaranteed.")
-            st.write("Planting seeds earns additional coins. Plant 4 or more seeds in a week and you start the following week with 5 coins + 1 extra coin!")
+            st.write("Planting seeds earns additional coins. Plant 3 or more seeds in a week and you start the following week with 5 coins + 1 extra coin!")
 
     st.markdown("---")
 

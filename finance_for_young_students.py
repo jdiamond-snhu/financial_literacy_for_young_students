@@ -77,15 +77,15 @@ with app_center:
                 st.markdown("#### 🟫 Bare Dirt:")
                 st.write("🟫 (Just empty dirt!)")
             elif st.session_state.garden_soil < 6:
-                st.markdown("#### 🌱 Tiny Sprouts Layout:")
+                st.markdown("#### 🌱 Number of Seeds you planted that grew into Tiny Sprouts:")
                 tree_string = " ".join(["🌱"] * st.session_state.garden_soil)
                 st.write(tree_string)
             elif st.session_state.garden_soil < 15:
-                st.markdown("#### 🌿 Bush Layout:")
+                st.markdown("#### 🌿 Number of Seeds you planted that grew into Bushes:")
                 tree_string = " ".join(["🌿"] * st.session_state.garden_soil)
                 st.write(tree_string)
             else:
-                st.markdown("#### 🌳 Number of Seeds you planted:")
+                st.markdown("#### 🌳 Number of Seeds you planted that grew to become Trees!:")
                 tree_string = " ".join(["🌳"] * st.session_state.garden_soil)
                 st.write(tree_string)
             
